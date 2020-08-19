@@ -34,7 +34,7 @@ const UserSchema = new mongoose.Schema({
       ref: "Stock",
     },
   ],
-  transactionHistory: [
+  transactions: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Transaction",

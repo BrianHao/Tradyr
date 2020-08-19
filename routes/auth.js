@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const passport = require("passport");
 const User = require("../models/user");
+const middleware = require("../middleware/auth");
 
 // Sign Up
 router.post("/signup", function (req, res) {
@@ -28,11 +29,12 @@ router.post("/signup", function (req, res) {
 // Log In
 router.post("/login", passport.authenticate("local"), function (req, res) {
   //res.status(200).json(req.user);
+  console.log("successfully logged in");
   res.redirect("/user/" + req.user.id);
 });
 
 // Log Out
-router.get("/logout", (req, res) => {
+router.get("/logout", middleware.loggedIn(), (req, res) => {
   req.logout();
   res.sendStatus(200);
 });

@@ -77,7 +77,7 @@ app.use(function (req, res, next) {
 // Routes
 app.use("/auth", authRoutes);
 app.use("/user/", userRoutes);
-app.use("/user/:user/audit", transactionsRoutes);
+app.use("/user/:user/transactions", transactionsRoutes);
 app.use("/user/:user", stocksRoutes);
 
 app.get("/", (req, res) => {
