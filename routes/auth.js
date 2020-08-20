@@ -13,15 +13,15 @@ router.post("/signup", function (req, res) {
   });
 
   User.register(newUser, req.body.password)
-    .then((user) => {
-      //if (err) console.log(err);
-      console.log("success registering " + newUser.username);
+    .then((err, user) => {
       passport.authenticate("local", {
         successRedirect: "/",
         failureRedirect: "/login",
         failureFlash: true,
       });
-      return res.status(200).json(user);
+      return res
+        .status(200)
+        .json("Successfully signed up as " + req.body.username);
     })
     .catch((err) => res.status(422).json(err));
 });
@@ -29,12 +29,11 @@ router.post("/signup", function (req, res) {
 // Log In
 router.post("/login", passport.authenticate("local"), function (req, res) {
   //res.status(200).json(req.user);
-  console.log("successfully logged in");
-  res.redirect("/user/" + req.user.id);
+  res.redirect("/user/");
 });
 
 // Log Out
-router.get("/logout", middleware.loggedIn(), (req, res) => {
+router.get("/logout", middleware.isLoggedIn(), (req, res) => {
   req.logout();
   res.sendStatus(200);
 });

@@ -2,15 +2,13 @@
 const mongoose = require("mongoose");
 
 // SCHEMA SETUP
-let StockSchema = new mongoose.Schema({
-  ticker: {
+const StockSchema = new mongoose.Schema({
+  symbol: {
     type: String,
     required: true,
-    trim: true,
   },
   quantity: {
     type: Number,
-    required: true,
     default: 0,
   },
 });

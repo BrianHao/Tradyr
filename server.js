@@ -77,8 +77,8 @@ app.use(function (req, res, next) {
 // Routes
 app.use("/auth", authRoutes);
 app.use("/user/", userRoutes);
-app.use("/user/:user/transactions", transactionsRoutes);
-app.use("/user/:user", stocksRoutes);
+app.use("/user/transactions", transactionsRoutes);
+app.use("/user/stocks/", stocksRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello from MERN testing 1");

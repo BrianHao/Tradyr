@@ -2,8 +2,8 @@
 const mongoose = require("mongoose");
 
 // SCHEMA SETUP
-let TransactionSchema = new mongoose.Schema({
-  ticker: {
+const TransactionSchema = new mongoose.Schema({
+  symbol: {
     type: String,
     required: true,
     trim: true,
@@ -18,7 +18,6 @@ let TransactionSchema = new mongoose.Schema({
   },
   time: {
     type: Date,
-    required: true,
     default: Date.now,
   },
   isBuy: {
