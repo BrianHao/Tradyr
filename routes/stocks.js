@@ -32,9 +32,6 @@ router.post("/buy", passport.isLoggedIn(), async function (req, res) {
         );
       }
 
-      // Deduct the money from the user
-      user.cash = user.cash - costOfPurchase;
-
       // Get the stock ID for the stock owned by the user
       let ownedStockId = await checkUserOwnsStock(
         user.stocksOwned,
@@ -53,6 +50,8 @@ router.post("/buy", passport.isLoggedIn(), async function (req, res) {
           let newTransaction = { symbol, quantity, price, isBuy: true };
           Transaction.create(newTransaction).then((createdTransaction) => {
             user.transactions.push(createdTransaction);
+            // Deduct the money from the user
+            user.cash = user.cash - costOfPurchase;
             user.save();
           });
         });
@@ -63,10 +62,10 @@ router.post("/buy", passport.isLoggedIn(), async function (req, res) {
         .json(
           "Successfully bought " +
             quantity +
-            " shares of " +
+            " share(s) of " +
             symbol +
             " for $" +
-            costOfPurchase
+            costOfPurchase / 10
         );
     })
     .catch((err) => res.status(400).json("Error: " + err));
@@ -74,10 +73,68 @@ router.post("/buy", passport.isLoggedIn(), async function (req, res) {
 
 // Logic for selling a stock
 router.post("/sell", passport.isLoggedIn(), async function (req, res) {
-  const symbol = req.body.symbol;
-  const quantity = req.body.quantity;
-  let quote = await getStockInfo(symbol);
-  let price = quote.latestPrice * 100;
+  let symbol = req.body.symbol.toUpperCase();
+  let quantity = req.body.quantity;
+
+  // Get the current user
+  let user = await User.findById(req.user.id)
+    .populate("stocksOwned")
+    .exec()
+    .then(async (user) => {
+      let quote = await getStockInfo(symbol);
+      let price = quote.latestPrice * 100;
+      let costOfSale = quantity * price;
+
+      // Check if quantity to purchase is a valid amount
+      if (quantity < 1) {
+        throw new Error("Invalid quantity to sell.");
+      }
+
+      // Get the stock ID for the stock owned by the user
+      let ownedStockId = await checkUserOwnsStock(
+        user.stocksOwned,
+        symbol,
+        user
+      );
+
+      // Update the stock quantity
+
+      Stock.findById(ownedStockId)
+        .then((stock) => {
+          if (stock.quantity < quantity) {
+            throw new Error(
+              "You do not have enough shares of this stock to complete the transaction."
+            );
+          }
+          stock.quantity = stock.quantity - quantity;
+          stock.save();
+        })
+        .then(() => {
+          // Add the transaction to the user's transaction history
+          let newTransaction = { symbol, quantity, price, isBuy: false };
+          Transaction.create(newTransaction).then((createdTransaction) => {
+            user.transactions.push(createdTransaction);
+            // Add the money to the user's account
+            user.cash = user.cash + costOfSale;
+            user.save();
+          });
+        })
+        .then(() => {
+          // Return success message
+          res
+            .status(200)
+            .json(
+              "Successfully sold " +
+                quantity +
+                " share(s) of " +
+                symbol +
+                " for $" +
+                costOfSale / 10
+            );
+        })
+        .catch((err) => res.status(400).json("Error: " + err));
+    })
+    .catch((err) => res.status(400).json("Error: " + err));
 });
 
 // Get information for a single stock
