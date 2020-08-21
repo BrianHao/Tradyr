@@ -1,3 +1,5 @@
+// Routes to get user information
+
 const express = require("express");
 const router = express.Router({ mergeParams: true });
 const passport = require("../middleware/auth");

@@ -75,10 +75,10 @@ app.use(function (req, res, next) {
 });
 
 // Routes
-app.use("/auth", authRoutes);
-app.use("/user/", userRoutes);
-app.use("/user/transactions", transactionsRoutes);
-app.use("/user/stocks/", stocksRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/user/", userRoutes);
+app.use("/api/user/transactions", transactionsRoutes);
+app.use("/api/user/stocks/", stocksRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello from MERN testing 1");
