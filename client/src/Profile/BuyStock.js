@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 export default class BuyStock extends Component {
-  componentWillMount() {}
+  componentDidMount() {}
 
   render() {
     return (

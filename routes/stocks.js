@@ -24,14 +24,18 @@ router.post("/buy", passport.isLoggedIn(), async function (req, res) {
 
       // Check if quantity to purchase is a valid amount
       if (quantity < 1) {
-        throw new Error("Invalid quantity to purchase.");
+        res.status(400).json({
+          status: 400,
+          message: "Plese enter a number greater than 0.",
+        });
       }
 
       // Check if user has enough cash on hand to complete the buy
       if (user.cash < costOfPurchase) {
-        throw new Error(
-          "You do not have enough cash to complete the transaction."
-        );
+        res.status(400).json({
+          status: 400,
+          message: "You do not have enough cash to complete this transaction.",
+        });
       }
 
       // Get the stock ID for the stock owned by the user
@@ -59,18 +63,22 @@ router.post("/buy", passport.isLoggedIn(), async function (req, res) {
         });
 
       // Return success message
-      res
-        .status(200)
-        .json(
+      res.status(200).json({
+        status: 200,
+        message:
           "Successfully bought " +
-            quantity +
-            " share(s) of " +
-            symbol +
-            " for $" +
-            costOfPurchase / 10
-        );
+          quantity +
+          " share(s) of " +
+          symbol +
+          " for $" +
+          costOfPurchase / 10,
+      });
     })
-    .catch((err) => res.status(400).json("Error: " + err));
+    .catch((err) =>
+      res
+        .status(400)
+        .json({ status: 400, message: "Unable to complete the transaction." })
+    );
 });
 
 // Logic for selling a stock
@@ -89,7 +97,10 @@ router.post("/sell", passport.isLoggedIn(), async function (req, res) {
 
       // Check if quantity to purchase is a valid amount
       if (quantity < 1) {
-        throw new Error("Invalid quantity to sell.");
+        res.status(400).json({
+          status: 400,
+          message: "Plese enter a number greater than 0.",
+        });
       }
 
       // Get the stock ID for the stock owned by the user
@@ -104,9 +115,10 @@ router.post("/sell", passport.isLoggedIn(), async function (req, res) {
       Stock.findById(ownedStockId)
         .then((stock) => {
           if (stock.quantity < quantity) {
-            throw new Error(
-              "You do not have enough shares of this stock to complete the transaction."
-            );
+            res.status(400).json({
+              status: 400,
+              message: "You do not have enough shares of this stock to sell.",
+            });
           }
           stock.quantity = stock.quantity - quantity;
           stock.save();
@@ -123,20 +135,31 @@ router.post("/sell", passport.isLoggedIn(), async function (req, res) {
         })
         .then(() => {
           // Return success message
-          res
-            .status(200)
-            .json(
+          res.status(200).json({
+            status: 200,
+            message:
               "Successfully sold " +
-                quantity +
-                " share(s) of " +
-                symbol +
-                " for $" +
-                costOfSale / 10
-            );
+              quantity +
+              " share(s) of " +
+              symbol +
+              " for $" +
+              costOfSale / 10,
+          });
         })
-        .catch((err) => res.status(400).json("Error: " + err));
+        .catch((err) =>
+          res
+            .status(400)
+            .json({
+              status: 400,
+              message: "Unable to complete the transaction.",
+            })
+        );
     })
-    .catch((err) => res.status(400).json("Error: " + err));
+    .catch((err) =>
+      res
+        .status(400)
+        .json({ status: 400, message: "Unable to complete the transaction." })
+    );
 });
 
 // Get information for a single stock

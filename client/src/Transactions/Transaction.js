@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Transaction from "./Transaction";
 
 export default class Transaction extends Component {
-  componentWillMount() {}
+  componentDidMount() {}
 
   render() {
     return (

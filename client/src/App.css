@@ -1,4 +1,4 @@
-.App {
+/*.App {
   text-align: center;
 }
 
@@ -36,7 +36,7 @@
   to {
     transform: rotate(360deg);
   }
-}
+}*/
 
 html {
   position: relative;
@@ -80,4 +80,8 @@ body {
   height: 2.5rem;
   bottom: 0;
   left: 0;
+}
+
+.center {
+  text-align: center;
 }

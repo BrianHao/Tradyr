@@ -13,10 +13,14 @@ router.get("/", passport.isLoggedIn(), async function (req, res) {
     .exec()
     .then((user) => {
       getStockInfo(user.stocksOwned).then((stockInfo) => {
-        res.json({ user: user, stockInfo: stockInfo });
+        res.status(200).json({ status: 200, user: user, stockInfo: stockInfo });
       });
     })
-    .catch((err) => res.status(400).json("Error: " + err));
+    .catch((err) =>
+      res
+        .status(400)
+        .json({ status: 400, message: "Unable to get user's information" })
+    );
 });
 
 // Compile latest stock information for all stocks owned by user

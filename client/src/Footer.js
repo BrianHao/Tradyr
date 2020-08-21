@@ -5,8 +5,8 @@ export default class Footer extends React.Component {
   render() {
     return (
       <div className="footer shadow">
-        <nav class="navbar navbar-dark bg-dark justify-content-center">
-          <span class="navbar-brand display-6 mr-2" href="/">
+        <nav className="navbar navbar-dark bg-dark justify-content-center">
+          <span className="navbar-brand display-6 mr-2" href="/">
             ©2020 Brian Hao
           </span>
 
@@ -19,7 +19,7 @@ export default class Footer extends React.Component {
           >
             <i className="fab fa-linkedin"></i>
           </a>
-          <div class="navbar-brand display-6 mx-3">|</div>
+          <div className="navbar-brand display-6 mx-3">|</div>
           <a className="text-muted" href="https://iexcloud.io">
             Data provided by IEX Cloud
           </a>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 export default class Transactions extends Component {
-  componentWillMount() {}
+  componentDidMount() {}
 
   render() {
     return (

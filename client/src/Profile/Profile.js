@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import Stock from "./Stock";
-import BuyStock from "./BuyStock";
-import SellStock from "./SellStock";
+//import Stock from "./Stock";
+//import BuyStock from "./BuyStock";
+//import SellStock from "./SellStock";
 
 export default class Profile extends Component {
-  componentWillMount() {}
+  componentDidMount() {}
 
   render() {
     return (
