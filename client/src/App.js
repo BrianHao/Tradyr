@@ -26,7 +26,7 @@ function App() {
             path="/profile/transactions"
             component={Transactions}
           />
-          <Route path="/*" component={PageNotFound} />
+          <Route path="/*" component={Landing} />
         </Switch>
       </div>
       <Footer />

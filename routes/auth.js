@@ -51,8 +51,28 @@ router.post("/signup", function (req, res) {
 });
 
 // Log In
+// router.post("/login", function (req, res, next) {
+//   passport.authenticate("local", function (err, user, info) {
+//     if (err) {
+//       return next(err); // will generate a 500 error
+//     }
+//     // Generate a JSON response reflecting signup
+//     if (!user) {
+//       return res.send({ status: 422, message: "Unable to log in." });
+//     }
+//     req.session.user = user;
+//     return res.send({
+//       status: 200,
+//       username: user.username,
+//       name: user.name,
+//       id: user.id,
+//     });
+//   })(req, res, next);
+// });
 router.post("/login", passport.authenticate("local"), function (req, res) {
-  console.log(req.user);
+  if (!req.user) {
+    return res.send({ status: 422, message: "signupfailed" });
+  }
   res.status(200).json({
     status: 200,
     username: req.user.username,
@@ -62,7 +82,7 @@ router.post("/login", passport.authenticate("local"), function (req, res) {
 });
 
 // Log Out
-router.get("/logout", middleware.isLoggedIn(), (req, res) => {
+router.get("/logout", (req, res) => {
   req.logout();
   res.status(200).json({ status: 200, message: "Successfully logged out." });
 });

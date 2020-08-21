@@ -26,7 +26,7 @@ router.post("/buy", passport.isLoggedIn(), async function (req, res) {
       if (quantity < 1) {
         res.status(400).json({
           status: 400,
-          message: "Plese enter a number greater than 0.",
+          message: "Plese enter a quantity greater than 0.",
         });
       }
 
@@ -43,6 +43,13 @@ router.post("/buy", passport.isLoggedIn(), async function (req, res) {
         user.stocksOwned,
         symbol,
         user
+      ).catch((err) =>
+        res
+          .status(400)
+          .json({
+            status: 400,
+            message: "Please provide a valid stock symbol.",
+          })
       );
 
       // Update the stock quantity
@@ -77,7 +84,7 @@ router.post("/buy", passport.isLoggedIn(), async function (req, res) {
     .catch((err) =>
       res
         .status(400)
-        .json({ status: 400, message: "Unable to complete the transaction." })
+        .json({ status: 400, message: "Unable to complete transaction." })
     );
 });
 
@@ -99,7 +106,7 @@ router.post("/sell", passport.isLoggedIn(), async function (req, res) {
       if (quantity < 1) {
         res.status(400).json({
           status: 400,
-          message: "Plese enter a number greater than 0.",
+          message: "Plese enter a quantity greater than 0.",
         });
       }
 
@@ -147,18 +154,16 @@ router.post("/sell", passport.isLoggedIn(), async function (req, res) {
           });
         })
         .catch((err) =>
-          res
-            .status(400)
-            .json({
-              status: 400,
-              message: "Unable to complete the transaction.",
-            })
+          res.status(400).json({
+            status: 400,
+            message: "Please provide a valid stock symbol.",
+          })
         );
     })
     .catch((err) =>
       res
         .status(400)
-        .json({ status: 400, message: "Unable to complete the transaction." })
+        .json({ status: 400, message: "Unable to complete transaction." })
     );
 });
 

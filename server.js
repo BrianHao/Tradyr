@@ -37,7 +37,13 @@ connection.once("open", () => {
 });
 
 // App config
-app.use(cors());
+app.use(
+  cors({
+    methods: ["GET", "POST"],
+    credentials: true,
+    origin: true,
+  })
+);
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
@@ -54,9 +60,6 @@ store.on("error", function (error) {
 app.use(
   expressSession({
     secret: SECRET,
-    cookie: {
-      maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
-    },
     store: store,
     resave: true,
     saveUninitialized: true,
@@ -76,7 +79,7 @@ app.use(function (req, res, next) {
 
 // Routes
 app.use("/api/auth", authRoutes);
-app.use("/api/user/", userRoutes);
+app.use("/api/user", userRoutes);
 app.use("/api/user/transactions", transactionsRoutes);
 app.use("/api/user/stocks/", stocksRoutes);
 

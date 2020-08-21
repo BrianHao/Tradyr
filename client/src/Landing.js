@@ -6,19 +6,13 @@ export default class Landing extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      isLoggedIn: false,
-    };
+    this.state = {};
   }
 
-  componentDidMount() {
-    if (sessionStorage.getItem("loggedIn") === "true") {
-      this.setState({ isLoggedIn: true });
-    }
-  }
+  componentDidMount() {}
 
   render() {
-    if (this.state.isLoggedIn) {
+    if (sessionStorage.getItem("loggedIn")) {
       return (
         <Redirect
           to={{

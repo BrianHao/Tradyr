@@ -1,13 +1,12 @@
 import React, { Component } from "react";
-import { Redirect } from "react-router-dom";
 
-export default class Transactions extends Component {
+export default class Stocks extends Component {
   componentDidMount() {}
 
   render() {
     return (
       <div>
-        <h1>Transactions</h1>
+        <h1>Stock</h1>
       </div>
     );
   }

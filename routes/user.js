@@ -7,7 +7,7 @@ const User = require("../models/user");
 const fetch = require("node-fetch");
 
 // Get user's profile, including current information on all stocks owned
-router.get("/", passport.isLoggedIn(), async function (req, res) {
+router.get("/profile", async function (req, res) {
   let user = await User.findById(req.user.id)
     .populate("stocksOwned")
     .exec()
@@ -17,9 +17,7 @@ router.get("/", passport.isLoggedIn(), async function (req, res) {
       });
     })
     .catch((err) =>
-      res
-        .status(400)
-        .json({ status: 400, message: "Unable to get user's information" })
+      res.status(400).json({ status: 400, message: "Unable to load profile." })
     );
 });
 
