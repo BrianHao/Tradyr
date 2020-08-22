@@ -75,7 +75,7 @@ export default class Profile extends Component {
   }
 
   render() {
-    const { user, cash, stocksTable, totalValue } = this.state;
+    const { user, cash, stocksTable, stocksList, totalValue } = this.state;
 
     if (!sessionStorage.getItem("loggedIn")) {
       return (
@@ -90,7 +90,7 @@ export default class Profile extends Component {
     return (
       <div className="window center container-lg">
         <h1 className="display-1 m-0">Dashboard</h1>
-        <hr></hr>
+        <hr className="m-0"></hr>
 
         <h1 className="display-5 m-0">
           {user.name} ({user.username})
@@ -100,8 +100,8 @@ export default class Profile extends Component {
           {Moment(user.created).format("MMMM Do YYYY, h:mm:ss a")}
         </small>
 
-        <h1 className="display-6">Cash: ${(cash / 100).toFixed(2)}</h1>
-        <hr></hr>
+        <h1 className="display-6 m-0">Cash: ${(cash / 100).toFixed(2)}</h1>
+        <hr className="mt-0"></hr>
         <div className="container-fluid">
           <div className="row align-items-start">
             <div className="col-sm-12 col-md-4 col-xl-3 container-fluid">
@@ -114,14 +114,30 @@ export default class Profile extends Component {
             </div>
             <div className="col-sm-12 col-md-8 col-xl-9">
               <div className="col pane">
-                <h1 className="display-6 center">
+                <h1 className="display-6 m-0 center">
                   Your Portfolio{" "}
                   <span className="font-weight-lighter">
                     (${totalValue.toFixed(2)})
                   </span>
                 </h1>
-                <hr></hr>
-                <div className="overflow-auto table-height">{stocksTable}</div>
+                <hr className="mt-0"></hr>
+                {stocksList.length ? (
+                  <div className="overflow-auto table-height">
+                    <table class="table table-striped table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">Symbol</th>
+                          <th scope="col">Company Name</th>
+                          <th scope="col">Shares Owned</th>
+                          <th scope="col">Latest Price</th>
+                        </tr>
+                      </thead>
+                      <tbody>{stocksTable}</tbody>
+                    </table>
+                  </div>
+                ) : (
+                  "You do not own any stocks."
+                )}
               </div>
             </div>
           </div>

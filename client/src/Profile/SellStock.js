@@ -64,8 +64,8 @@ export default class SellStock extends Component {
 
     return (
       <div className="">
-        <h1 className="display-6 center">Sell Stock</h1>
-        <hr></hr>
+        <h1 className="display-6 m-0 center">Sell Stock</h1>
+        <hr className="mt-0"></hr>
         {this.state.success !== "" ? (
           <div
             className="alert alert-success alert-dismissible fade show py-0 px-5"
