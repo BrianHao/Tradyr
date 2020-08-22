@@ -104,40 +104,44 @@ export default class Profile extends Component {
         <hr className="mt-0"></hr>
         <div className="container-fluid">
           <div className="row align-items-start">
-            <div className="col-sm-12 col-md-4 col-xl-3 container-fluid">
-              <div className="col pane">
-                <BuyStock />
-              </div>
-              <div className="col pane">
-                <SellStock />
+            <div className="col-sm-12 col-md-4 col-xl-3 col-xxl-2 container-fluid">
+              <div className="row justify-content-center">
+                <div className="col-xs-12 col-sm-5 col-md-12 pane">
+                  <BuyStock />
+                </div>
+                <div className="col-xs-12 col-sm-5 col-md-12 pane">
+                  <SellStock />
+                </div>
               </div>
             </div>
-            <div className="col-sm-12 col-md-8 col-xl-9">
-              <div className="col pane">
-                <h1 className="display-6 m-0 center">
-                  Your Portfolio{" "}
-                  <span className="font-weight-lighter">
-                    (${totalValue.toFixed(2)})
-                  </span>
-                </h1>
-                <hr className="mt-0"></hr>
-                {stocksList.length ? (
-                  <div className="overflow-auto table-height">
-                    <table class="table table-striped table-hover">
-                      <thead>
-                        <tr>
-                          <th scope="col">Symbol</th>
-                          <th scope="col">Company Name</th>
-                          <th scope="col">Shares Owned</th>
-                          <th scope="col">Latest Price</th>
-                        </tr>
-                      </thead>
-                      <tbody>{stocksTable}</tbody>
-                    </table>
-                  </div>
-                ) : (
-                  "You do not own any stocks."
-                )}
+            <div className="col-sm-12 col-md-8 col-xl-9 col-xxl-10">
+              <div className="row">
+                <div className="col pane">
+                  <h1 className="display-6 m-0 center">
+                    Your Portfolio{" "}
+                    <span className="font-weight-lighter">
+                      (${totalValue.toFixed(2)})
+                    </span>
+                  </h1>
+                  <hr className="mt-0"></hr>
+                  {stocksList.length ? (
+                    <div className="overflow-auto table-height">
+                      <table className="table table-striped table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Symbol</th>
+                            <th scope="col">Company Name</th>
+                            <th scope="col">Shares Owned</th>
+                            <th scope="col">Latest Price</th>
+                          </tr>
+                        </thead>
+                        <tbody>{stocksTable}</tbody>
+                      </table>
+                    </div>
+                  ) : (
+                    "You do not own any stocks."
+                  )}
+                </div>
               </div>
             </div>
           </div>

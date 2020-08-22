@@ -25,13 +25,13 @@ export default class Stock extends Component {
     if (stock.latestPrice > previousPrice) {
       latest = (
         <td className="text-success">
-          <i class="fas fa-chevron-up"></i> ${price} ({diff})
+          <i className="fas fa-chevron-up"></i> ${price} ({diff})
         </td>
       );
     } else if (stock.latestPrice < previousPrice) {
       latest = (
         <td className="text-danger">
-          <i class="fas fa-chevron-down"></i> ${price} ({diff})
+          <i className="fas fa-chevron-down"></i> ${price} ({diff})
         </td>
       );
     } else {

@@ -10,6 +10,7 @@ const Transaction = require("../models/transaction");
 
 // Logic for buying a stock
 router.post("/buy", passport.isLoggedIn(), async function (req, res) {
+  console.log(req.body);
   let symbol = req.body.symbol.toUpperCase();
   let quantity = req.body.quantity;
   let price;
@@ -76,10 +77,12 @@ router.post("/buy", passport.isLoggedIn(), async function (req, res) {
       })
     )
     .catch((err) => {
-      console.log(err);
+      if (err.message.length > 20) {
+        err.message = "Invalid stock symbol.";
+      }
       return res.status(400).json({
         status: 400,
-        message: "Unable to complete transaction.",
+        message: err.message,
       });
     });
 });
@@ -115,9 +118,7 @@ router.post("/sell", passport.isLoggedIn(), async function (req, res) {
       Stock.findById(ownedStockId)
         .then((stock) => {
           if (stock.quantity < quantity) {
-            throw new Error(
-              "You do not have enough shares of this stock to sell."
-            );
+            throw new Error("Not enough shares.");
           }
           stock.quantity = stock.quantity - quantity;
           stock.save();
@@ -145,18 +146,25 @@ router.post("/sell", passport.isLoggedIn(), async function (req, res) {
               costOfSale / 100,
           });
         })
-        .catch((err) =>
-          res.status(400).json({
+        .catch((err) => {
+          if (err.message.length > 20) {
+            err.message = "Invalid stock symbol.";
+          }
+          return res.status(400).json({
             status: 400,
-            message: "Unable to complete transaction.",
-          })
-        );
+            message: err.message,
+          });
+        });
     })
-    .catch((err) =>
-      res
-        .status(400)
-        .json({ status: 400, message: "Unable to complete transaction." })
-    );
+    .catch((err) => {
+      if (err.message.length > 20) {
+        err.message = "Invalid stock symbol.";
+      }
+      return res.status(400).json({
+        status: 400,
+        message: err.message,
+      });
+    });
 });
 
 // Get information for a single stock
@@ -167,9 +175,7 @@ async function getStockInfo(symbol) {
     "/quote?token=" +
     process.env.IEX_APITOKEN;
 
-  let stockQuote = await fetch(url).catch(() => {
-    throw new Error("Unable to fetch stock quote.");
-  });
+  let stockQuote = await fetch(url);
 
   return stockQuote.json();
 }

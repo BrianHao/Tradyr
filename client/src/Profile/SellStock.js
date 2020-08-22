@@ -36,7 +36,7 @@ export default class SellStock extends Component {
       },
       body: JSON.stringify({
         symbol: symbol,
-        quantity: quantity,
+        quantity: parseInt(quantity, 10),
       }),
     })
       .then((res) => res.json())
@@ -45,16 +45,16 @@ export default class SellStock extends Component {
           this.setState({
             success: data.message,
           });
+          window.location.reload();
         } else {
           this.setState({
             alert: data.message,
           });
         }
       })
-      .then(() => window.location.reload())
       .catch((e) => {
         this.setState({
-          alert: "Error: Unable to complete transaction.",
+          alert: e.message,
         });
       });
   }
@@ -67,19 +67,8 @@ export default class SellStock extends Component {
         <h1 className="display-6 m-0 center">Sell Stock</h1>
         <hr className="mt-0"></hr>
         {this.state.success !== "" ? (
-          <div
-            className="alert alert-success alert-dismissible fade show py-0 px-5"
-            role="alert"
-          >
+          <div className="alert alert-success p-0" role="alert">
             {this.state.success}
-            <button
-              type="button"
-              className="close py-0"
-              data-dismiss="alert"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
           </div>
         ) : null}
         {this.state.alert !== "" ? (
