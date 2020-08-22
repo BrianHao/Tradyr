@@ -11,7 +11,9 @@ export default class Profile extends Component {
 
     this.state = {
       user: {},
-      stockInfo: {},
+      totalValue: 0,
+      stocksList: [],
+      stocksTable: [],
       alert: "",
       cash: 0,
     };
@@ -19,7 +21,6 @@ export default class Profile extends Component {
 
   componentDidMount() {
     if (sessionStorage.getItem("loggedIn")) {
-      console.log("fetching");
       const url = "http://localhost:5000/api/user/profile";
       fetch(url, {
         method: "GET",
@@ -29,10 +30,10 @@ export default class Profile extends Component {
         .then((res) => res.json())
         .then((data) => {
           if (data.status === 200) {
-            let cash = (data.user.cash / 100).toFixed(2);
+            let cash = data.user.cash;
             this.setState({
               user: data.user,
-              stockInfo: data.stockInfo,
+              stocksList: data.stockInfo,
               cash: cash,
             });
           } else {
@@ -40,6 +41,10 @@ export default class Profile extends Component {
               alert: data.message,
             });
           }
+        })
+        .then(() => {
+          let stocksTable = this.compileStocksTable(this.state.stocksList);
+          this.setState({ stocksTable: stocksTable });
         })
         .catch((e) => {
           console.log(e);
@@ -50,7 +55,28 @@ export default class Profile extends Component {
     }
   }
 
+  compileStocksTable(stocks) {
+    if (stocks.length === 0) {
+      return "You do not currently own any stocks.";
+    }
+
+    let stocksList = [];
+    for (let stock of stocks) {
+      if (stock.quantity > 0) {
+        this.setState({
+          totalValue:
+            this.state.totalValue + stock.quantity * stock.latestPrice,
+        });
+        stocksList.push(<Stock key={stock.symbol} stock={stock} />);
+      }
+    }
+
+    return stocksList;
+  }
+
   render() {
+    const { user, cash, stocksTable, totalValue } = this.state;
+
     if (!sessionStorage.getItem("loggedIn")) {
       return (
         <Redirect
@@ -62,28 +88,41 @@ export default class Profile extends Component {
     }
 
     return (
-      <div className="window center">
-        <h1 className="display-3 m-0">Your Profile</h1>
-        <h1 className="display-6 m-0">
-          {this.state.user.name} ({this.state.user.username})
+      <div className="window center container-lg">
+        <h1 className="display-1 m-0">Dashboard</h1>
+        <hr></hr>
+
+        <h1 className="display-5 m-0">
+          {user.name} ({user.username})
         </h1>
         <small className="text-muted">
           Account created:{" "}
-          {Moment(this.state.user.created).format("MMMM Do YYYY, h:mm:ss a")}
+          {Moment(user.created).format("MMMM Do YYYY, h:mm:ss a")}
         </small>
+
+        <h1 className="display-6">Cash: ${(cash / 100).toFixed(2)}</h1>
         <hr></hr>
-        <h1 className="display-5">Cash on hand: ${this.state.cash}</h1>
-        <hr></hr>
-        <div className="container">
+        <div className="container-fluid">
           <div className="row align-items-start">
-            <div className="col container">
+            <div className="col-sm-12 col-md-4 col-xl-3 container-fluid">
               <div className="col pane">
                 <BuyStock />
               </div>
-              <div className="col pane">Sell</div>
+              <div className="col pane">
+                <SellStock />
+              </div>
             </div>
-            <div className="col">
-              <div className="col pane">Stocks</div>
+            <div className="col-sm-12 col-md-8 col-xl-9">
+              <div className="col pane">
+                <h1 className="display-6 center">
+                  Your Portfolio{" "}
+                  <span className="font-weight-lighter">
+                    (${totalValue.toFixed(2)})
+                  </span>
+                </h1>
+                <hr></hr>
+                <div className="overflow-auto table-height">{stocksTable}</div>
+              </div>
             </div>
           </div>
         </div>

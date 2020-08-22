@@ -51,9 +51,10 @@ export default class BuyStock extends Component {
           });
         }
       })
+      .then(() => window.location.reload())
       .catch((e) => {
         this.setState({
-          alert: "Error: Invalid credentials.",
+          alert: "Error: Unable to complete transaction.",
         });
       });
   }
@@ -63,7 +64,7 @@ export default class BuyStock extends Component {
 
     return (
       <div className="">
-        <h1 className="display-6 center">Buy a Stock</h1>
+        <h1 className="display-6 center">Buy Stock</h1>
         <hr></hr>
         {this.state.success !== "" ? (
           <div
@@ -73,7 +74,7 @@ export default class BuyStock extends Component {
             {this.state.success}
             <button
               type="button"
-              class="close py-0"
+              className="close py-0"
               data-dismiss="alert"
               aria-label="Close"
             >
@@ -89,7 +90,7 @@ export default class BuyStock extends Component {
             {this.state.alert}
             <button
               type="button"
-              class="close py-0"
+              className="close py-0"
               data-dismiss="alert"
               aria-label="Close"
             >
@@ -110,7 +111,7 @@ export default class BuyStock extends Component {
               ></input>
             </div>
             <div className="input-group input-group-sm mb-3">
-              <span className="input-group-text">Quantity:</span>
+              <span className="input-group-text">Quantity to Buy:</span>
               <input
                 type="number"
                 className="form-control"

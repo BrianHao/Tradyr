@@ -94,7 +94,7 @@ export default class Signup extends Component {
     }
 
     return (
-      <div className="window-s">
+      <div className="window-s container-sm">
         <h1 className="display-3 center">Sign Up</h1>
         <hr></hr>
         {this.state.alert !== "" ? (

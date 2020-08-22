@@ -12,6 +12,8 @@ const Transaction = require("../models/transaction");
 router.post("/buy", passport.isLoggedIn(), async function (req, res) {
   let symbol = req.body.symbol.toUpperCase();
   let quantity = req.body.quantity;
+  let price;
+  let costOfPurchase;
 
   // Get the current user
   let user = await User.findById(req.user.id)
@@ -19,57 +21,49 @@ router.post("/buy", passport.isLoggedIn(), async function (req, res) {
     .exec()
     .then(async (user) => {
       let quote = await getStockInfo(symbol);
-      let price = quote.latestPrice * 100;
-      let costOfPurchase = quantity * price;
+      price = quote.latestPrice * 100;
+      costOfPurchase = quantity * price;
 
       // Check if quantity to purchase is a valid amount
       if (quantity < 1) {
-        res.status(400).json({
-          status: 400,
-          message: "Plese enter a quantity greater than 0.",
-        });
+        throw new Error("Invalid quantity.");
       }
 
       // Check if user has enough cash on hand to complete the buy
       if (user.cash < costOfPurchase) {
-        res.status(400).json({
-          status: 400,
-          message: "You do not have enough cash to complete this transaction.",
-        });
+        throw new Error("Not enough cash.");
       }
-
       // Get the stock ID for the stock owned by the user
       let ownedStockId = await checkUserOwnsStock(
         user.stocksOwned,
         symbol,
         user
-      ).catch((err) =>
-        res
-          .status(400)
-          .json({
-            status: 400,
-            message: "Please provide a valid stock symbol.",
-          })
       );
 
-      // Update the stock quantity
-      Stock.findById(ownedStockId)
-        .then((stock) => {
-          stock.quantity = stock.quantity + quantity;
-          stock.save();
-        })
-        .then(() => {
-          // Add the transaction to the user's transaction history
-          let newTransaction = { symbol, quantity, price, isBuy: true };
-          Transaction.create(newTransaction).then((createdTransaction) => {
-            user.transactions.push(createdTransaction);
-            // Deduct the money from the user
-            user.cash = user.cash - costOfPurchase;
-            user.save();
-          });
-        });
-
-      // Return success message
+      return { ownedStockId, user };
+    })
+    .then(async (data) => {
+      let stock = await Stock.findById(data.ownedStockId);
+      return { stock: stock, user: data.user };
+    })
+    .then((data) => {
+      data.stock.quantity = data.stock.quantity + quantity;
+      data.stock.save();
+      return data.user;
+    })
+    .then(async (user) => {
+      // Add the transaction to the user's transaction history
+      let newTransaction = { symbol, quantity, price, isBuy: true };
+      let transaction = await Transaction.create(newTransaction);
+      return { user: user, transaction: transaction };
+    })
+    .then((data) => {
+      data.user.transactions.push(data.transaction);
+      // Deduct the money from the user
+      data.user.cash = data.user.cash - costOfPurchase;
+      data.user.save();
+    })
+    .then(() =>
       res.status(200).json({
         status: 200,
         message:
@@ -78,14 +72,16 @@ router.post("/buy", passport.isLoggedIn(), async function (req, res) {
           " share(s) of " +
           symbol +
           " for $" +
-          costOfPurchase / 10,
+          costOfPurchase / 100,
+      })
+    )
+    .catch((err) => {
+      console.log(err);
+      return res.status(400).json({
+        status: 400,
+        message: "Unable to complete transaction.",
       });
-    })
-    .catch((err) =>
-      res
-        .status(400)
-        .json({ status: 400, message: "Unable to complete transaction." })
-    );
+    });
 });
 
 // Logic for selling a stock
@@ -104,10 +100,7 @@ router.post("/sell", passport.isLoggedIn(), async function (req, res) {
 
       // Check if quantity to purchase is a valid amount
       if (quantity < 1) {
-        res.status(400).json({
-          status: 400,
-          message: "Plese enter a quantity greater than 0.",
-        });
+        throw new Error("Invalid quantity.");
       }
 
       // Get the stock ID for the stock owned by the user
@@ -122,10 +115,9 @@ router.post("/sell", passport.isLoggedIn(), async function (req, res) {
       Stock.findById(ownedStockId)
         .then((stock) => {
           if (stock.quantity < quantity) {
-            res.status(400).json({
-              status: 400,
-              message: "You do not have enough shares of this stock to sell.",
-            });
+            throw new Error(
+              "You do not have enough shares of this stock to sell."
+            );
           }
           stock.quantity = stock.quantity - quantity;
           stock.save();
@@ -150,13 +142,13 @@ router.post("/sell", passport.isLoggedIn(), async function (req, res) {
               " share(s) of " +
               symbol +
               " for $" +
-              costOfSale / 10,
+              costOfSale / 100,
           });
         })
         .catch((err) =>
           res.status(400).json({
             status: 400,
-            message: "Please provide a valid stock symbol.",
+            message: "Unable to complete transaction.",
           })
         );
     })
@@ -176,23 +168,31 @@ async function getStockInfo(symbol) {
     process.env.IEX_APITOKEN;
 
   let stockQuote = await fetch(url).catch(() => {
-    console.log("Error in fetching stock prices");
+    throw new Error("Unable to fetch stock quote.");
   });
 
   return stockQuote.json();
 }
 
 // Check if user has this stock in their list of stocks owned, if not, create it
-function checkUserOwnsStock(stockList, symbol, user) {
+async function checkUserOwnsStock(stockList, symbol, user) {
   for (let stock of stockList) {
     if (stock.symbol === symbol) return stock._id;
   }
   let newStock = { symbol, quantity: 0 };
-  Stock.create(newStock).then((createdStock) => {
-    user.stocksOwned.push(createdStock);
-    user.save();
-    return createdStock._id;
-  });
+  let stock = await Stock.create(newStock)
+    .then((createdStock) => {
+      user.stocksOwned.push(createdStock);
+      user.save();
+      return createdStock;
+    })
+    .then((stock) => {
+      stock.save();
+      console.log("dasd", stock._id);
+      return stock;
+    });
+  //.then((stock) => stock._id);
+  return stock._id;
 }
 
 module.exports = router;

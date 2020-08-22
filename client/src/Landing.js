@@ -26,7 +26,7 @@ export default class Landing extends Component {
     }
 
     return (
-      <div className="window center">
+      <div className="window center container-md">
         <h1 className="display-1">Welcome to Tradyr</h1>
         <small className="text-muted">
           A simple to use web-based stock portfolio app.

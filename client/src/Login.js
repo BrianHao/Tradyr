@@ -89,7 +89,7 @@ export default class Login extends Component {
     }
 
     return (
-      <div className="window-s">
+      <div className="window-s container-sm">
         <h1 className="display-3 center">Log In</h1>
         <hr></hr>
         {this.state.justSignedUp === true ? (

@@ -6,7 +6,6 @@ import Profile from "./Profile/Profile";
 import Signup from "./Signup";
 import Login from "./Login";
 import Transactions from "./Transactions/Transactions";
-import PageNotFound from "./PageNotFound";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
