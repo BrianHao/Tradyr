@@ -59,26 +59,13 @@ export default class Signup extends Component {
       })
       .catch((e) => {
         this.setState({
-          alert: "Error: Please provide the necessary information.",
+          alert: e.message,
         });
       });
   }
 
   render() {
     const { email, name, password, success, isLoggedIn } = this.state;
-
-    if (isLoggedIn) {
-      return (
-        <Redirect
-          to={{
-            pathname: "/profile",
-            state: {
-              justLoggedIn: false,
-            },
-          }}
-        />
-      );
-    }
 
     if (success) {
       return (
@@ -88,6 +75,16 @@ export default class Signup extends Component {
             state: {
               justSignedUp: true,
             },
+          }}
+        />
+      );
+    }
+
+    if (isLoggedIn) {
+      return (
+        <Redirect
+          to={{
+            pathname: "/user/dashboard",
           }}
         />
       );

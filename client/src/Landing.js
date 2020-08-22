@@ -16,10 +16,7 @@ export default class Landing extends Component {
       return (
         <Redirect
           to={{
-            pathname: "/profile",
-            state: {
-              justLoggedIn: false,
-            },
+            pathname: "/user/dashboard",
           }}
         />
       );
@@ -33,7 +30,7 @@ export default class Landing extends Component {
         </small>
         <hr></hr>
         <small className="text-muted">
-          <Link to="/login">Log in</Link> now to get started.
+          <Link to="/login">Log in</Link> to get started.
         </small>
         <br></br>
         <small className="text-muted">

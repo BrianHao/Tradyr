@@ -10,7 +10,7 @@ export default class Login extends Component {
       password: "",
       isLoggedIn: false,
       justLoggedIn: false,
-      justSignedUp: false,
+      message: "",
       alert: "",
     };
 
@@ -21,6 +21,9 @@ export default class Login extends Component {
   componentDidMount() {
     if (sessionStorage.getItem("loggedIn") === "true") {
       this.setState({ isLoggedIn: true });
+    }
+    if (this.props.location.state && this.props.location.state.justSignedUp) {
+      this.setState({ message: "Successfully signed up! You may now log in." });
     }
   }
 
@@ -64,6 +67,7 @@ export default class Login extends Component {
       })
       .then(() => {
         this.setState({ isLoggedIn: true, justLoggedIn: true });
+        window.location.reload();
       })
       .catch((e) => {
         this.setState({
@@ -73,16 +77,13 @@ export default class Login extends Component {
   }
 
   render() {
-    const { email, password, isLoggedIn } = this.state;
+    const { email, password, isLoggedIn, message, alert } = this.state;
 
     if (isLoggedIn) {
       return (
         <Redirect
           to={{
-            pathname: "/profile",
-            state: {
-              justLoggedIn: this.state.justLoggedIn,
-            },
+            pathname: "/user/dashboard",
           }}
         />
       );
@@ -92,14 +93,14 @@ export default class Login extends Component {
       <div className="window-s container-sm">
         <h1 className="display-3 center">Log In</h1>
         <hr></hr>
-        {this.state.justSignedUp === true ? (
+        {message ? (
           <div className="alert alert-success" role="alert">
-            Successfully signed up! You can now log in.
+            {message}
           </div>
         ) : null}
-        {this.state.alert !== "" ? (
+        {alert !== "" ? (
           <div className="alert alert-danger" role="alert">
-            {this.state.alert}
+            {alert}
           </div>
         ) : null}
         <div>

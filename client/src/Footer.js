@@ -4,8 +4,8 @@ import "./App.js";
 export default class Footer extends React.Component {
   render() {
     return (
-      <div className="footer shadow">
-        <nav className="navbar navbar-dark bg-dark justify-content-center">
+      <div className="footer">
+        <nav className="navbar navbar-dark bg-dark justify-content-center shadow">
           <span className="navbar-brand display-6 mr-2" href="/">
             ©2020 Brian Hao
           </span>

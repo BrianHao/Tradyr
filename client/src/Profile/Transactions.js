@@ -6,7 +6,7 @@ export default class Transactions extends Component {
 
   render() {
     return (
-      <div>
+      <div className="window">
         <h1>Transactions</h1>
       </div>
     );

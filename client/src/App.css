@@ -54,7 +54,7 @@ body {
 
 .window {
   width: 80%;
-  margin: 80px auto 80px auto;
+  margin: 80px auto 40px auto;
   padding: 30px;
   box-shadow: 0px 10px 30px 5px rgba(0, 0, 0, 0.75);
   background: rgba(212, 228, 239, 0.95);
@@ -72,6 +72,7 @@ body {
 
 .window-s {
   width: 50%;
+  max-width: 400px;
   margin: 80px auto 80px auto;
   padding: 30px;
   box-shadow: 0px 10px 30px 5px rgba(0, 0, 0, 0.75);

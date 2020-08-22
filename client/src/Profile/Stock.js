@@ -56,14 +56,3 @@ export default class Stock extends Component {
     );
   }
 }
-
-/*
-<td>{stock.latestPrice}</td>
-"symbol": "MSFT",
-            "quantity": 1,
-            "latestPrice": 213.02,
-            "companyName": "Microsoft Corp.",
-            "open": 213.86,
-            "close": 213.02,
-            "previousClose": 214.58
-*/

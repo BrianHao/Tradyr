@@ -56,10 +56,6 @@ export default class Profile extends Component {
   }
 
   compileStocksTable(stocks) {
-    if (stocks.length === 0) {
-      return "You do not currently own any stocks.";
-    }
-
     let stocksList = [];
     for (let stock of stocks) {
       if (stock.quantity > 0) {
@@ -124,23 +120,19 @@ export default class Profile extends Component {
                     </span>
                   </h1>
                   <hr className="mt-0"></hr>
-                  {stocksList.length ? (
-                    <div className="overflow-auto table-height">
-                      <table className="table table-striped table-hover">
-                        <thead>
-                          <tr>
-                            <th scope="col">Symbol</th>
-                            <th scope="col">Company Name</th>
-                            <th scope="col">Shares Owned</th>
-                            <th scope="col">Latest Price</th>
-                          </tr>
-                        </thead>
-                        <tbody>{stocksTable}</tbody>
-                      </table>
-                    </div>
-                  ) : (
-                    "You do not own any stocks."
-                  )}
+                  <div className="overflow-auto table-height">
+                    <table className="table table-striped table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">Symbol</th>
+                          <th scope="col">Company Name</th>
+                          <th scope="col">Shares Owned</th>
+                          <th scope="col">Latest Price</th>
+                        </tr>
+                      </thead>
+                      <tbody>{stocksTable}</tbody>
+                    </table>
+                  </div>
                 </div>
               </div>
             </div>
