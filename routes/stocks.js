@@ -39,7 +39,6 @@ router.post("/buy", passport.isLoggedIn(), async function (req, res) {
         symbol,
         user
       );
-
       return { ownedStockId, user };
     })
     .then(async (data) => {
@@ -47,23 +46,26 @@ router.post("/buy", passport.isLoggedIn(), async function (req, res) {
       return { stock: stock, user: data.user };
     })
     .then((data) => {
+      // Update the stock's quantity
       data.stock.quantity = data.stock.quantity + quantity;
       data.stock.save();
       return data.user;
     })
     .then(async (user) => {
-      // Add the transaction to the user's transaction history
+      // Create the log for this transaction
       let newTransaction = { symbol, quantity, price, isBuy: true };
       let transaction = await Transaction.create(newTransaction);
       return { user: user, transaction: transaction };
     })
     .then((data) => {
+      // Add the transaction to the user's transactions history
       data.user.transactions.push(data.transaction);
       // Deduct the money from the user
       data.user.cash = data.user.cash - costOfPurchase;
       data.user.save();
     })
     .then(() =>
+      // Return success message
       res.status(200).json({
         status: 200,
         message:
@@ -113,7 +115,6 @@ router.post("/sell", passport.isLoggedIn(), async function (req, res) {
       );
 
       // Update the stock quantity
-
       Stock.findById(ownedStockId)
         .then((stock) => {
           if (stock.quantity < quantity) {
@@ -195,7 +196,6 @@ async function checkUserOwnsStock(stockList, symbol, user) {
       stock.save();
       return stock;
     });
-  //.then((stock) => stock._id);
   return stock._id;
 }
 

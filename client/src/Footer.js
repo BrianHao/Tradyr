@@ -1,3 +1,4 @@
+// Footer Component
 import React from "react";
 import "./App.js";
 

@@ -1,3 +1,4 @@
+// Transaction Component - Returns table row for a single user transaction
 import React, { Component } from "react";
 import Moment from "moment";
 

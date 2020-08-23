@@ -4,10 +4,10 @@ const express = require("express");
 const router = express.Router({ mergeParams: true });
 const passport = require("passport");
 const User = require("../models/user");
-const middleware = require("../middleware/auth");
 
-// Sign Up
+// Sign Up Logic
 router.post("/signup", function (req, res) {
+  // Check if input fields are valid
   if (!req.body.username || !validateEmail(req.body.username)) {
     res.status(406).json({
       status: 406,
@@ -30,6 +30,7 @@ router.post("/signup", function (req, res) {
     name: req.body.name,
   });
 
+  // Register the user
   User.register(newUser, req.body.password)
     .then((err, user) => {
       //passport.authenticate("local");
@@ -46,6 +47,7 @@ router.post("/signup", function (req, res) {
     );
 });
 
+// Log In Logic
 router.post("/login", passport.authenticate("local"), function (req, res) {
   if (!req.user) {
     return res.send({ status: 422, message: "signupfailed" });
@@ -58,12 +60,13 @@ router.post("/login", passport.authenticate("local"), function (req, res) {
   });
 });
 
-// Log Out
+// Log Out Logic
 router.get("/logout", (req, res) => {
   req.logout();
   res.status(200).json({ status: 200, message: "Successfully logged out." });
 });
 
+// Check if provided email is in the proper format
 function validateEmail(email) {
   const re = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
   return re.test(email);

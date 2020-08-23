@@ -1,3 +1,4 @@
+// Stock Component - Returns table row for a single user owned stock
 import React, { Component } from "react";
 
 export default class Stock extends Component {
@@ -16,6 +17,8 @@ export default class Stock extends Component {
     });
   }
 
+  // Create the table data for the latest price for a single stock,
+  // along with it's change relative to open/previous price
   getLatestPrice() {
     const { stock } = this.props;
     const { previousPrice } = this.state;

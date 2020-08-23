@@ -1,3 +1,4 @@
+// Transactions Page
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Transaction from "./Transaction";
@@ -16,6 +17,7 @@ export default class Transactions extends Component {
   }
 
   componentDidMount() {
+    // Get user's transactions history
     if (sessionStorage.getItem("loggedIn")) {
       const url = "http://localhost:5000/api/user/transactions";
       fetch(url, {
@@ -45,6 +47,7 @@ export default class Transactions extends Component {
     }
   }
 
+  // Compiles the transactions into their respectivea arrays according to type (all, buys only, sells only)
   compileTxTables(transactions) {
     let allTable = [];
     let buysTable = [];
@@ -62,18 +65,7 @@ export default class Transactions extends Component {
     this.setState({ allTx: allTable, buysTx: buysTable, sellsTx: sellsTable });
   }
 
-  makeTxIntoRow(tx) {
-    return (
-      <tr>
-        <td>{tx.time}</td>
-        <td>{tx.isBuy}</td>
-        <td>{tx.symbol}</td>
-        <td>{tx.quantity}</td>
-        <td>{tx.price}</td>
-      </tr>
-    );
-  }
-
+  // Build the appropiate table depending on display type (all, buys only, sells only)
   buildTable(display) {
     let retTable = [];
 

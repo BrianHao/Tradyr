@@ -1,4 +1,4 @@
-// Routes for user transactions
+// Routes for user transactions history
 
 const express = require("express");
 const router = express.Router({ mergeParams: true });

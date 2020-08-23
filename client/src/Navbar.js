@@ -1,3 +1,4 @@
+// Navbar Component
 import React from "react";
 import "./App.js";
 import { Redirect } from "react-router-dom";

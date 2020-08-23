@@ -1,8 +1,7 @@
-// Routes to get user information
+// Routes to get User's profile information
 
 const express = require("express");
 const router = express.Router({ mergeParams: true });
-const passport = require("../middleware/auth");
 const User = require("../models/user");
 const fetch = require("node-fetch");
 
@@ -21,7 +20,7 @@ router.get("/profile", async function (req, res) {
     );
 });
 
-// Compile latest stock information for all stocks owned by user
+// Compile latest stock information for each stock owned by user
 async function getStockInfo(stocks) {
   return Promise.all(
     stocks.map(async (stock) => {

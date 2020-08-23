@@ -1,3 +1,4 @@
+// Signup Page
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 
@@ -29,6 +30,7 @@ export default class Signup extends Component {
     });
   };
 
+  // Handle Sign Up
   onSignUp(event) {
     event.preventDefault();
     // Grab state

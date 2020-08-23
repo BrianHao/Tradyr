@@ -1,3 +1,4 @@
+// Profile => User Dashboard Page
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 import Moment from "moment";
@@ -20,6 +21,7 @@ export default class Profile extends Component {
   }
 
   componentDidMount() {
+    // Get uer's profile information
     if (sessionStorage.getItem("loggedIn")) {
       const url = "http://localhost:5000/api/user/profile";
       fetch(url, {
@@ -54,6 +56,7 @@ export default class Profile extends Component {
     }
   }
 
+  // Compile the table to show user's list of owned stocks
   compileStocksTable(stocks) {
     let stocksList = [];
     for (let stock of stocks) {

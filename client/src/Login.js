@@ -1,3 +1,4 @@
+// Login Page
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
 
@@ -33,11 +34,10 @@ export default class Login extends Component {
     });
   };
 
+  // Handle Log In
   onLogIn(event) {
     event.preventDefault();
-    // Grab state
     const { email, password } = this.state;
-    // // Post request to backend
     fetch("http://localhost:5000/api/auth/login", {
       method: "POST",
       credentials: "include",

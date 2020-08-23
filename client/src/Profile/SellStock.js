@@ -1,3 +1,4 @@
+// Sell Stock Component
 import React, { Component } from "react";
 
 export default class SellStock extends Component {
@@ -23,6 +24,7 @@ export default class SellStock extends Component {
     });
   };
 
+  // Handle Sell Stock
   onSell(event) {
     event.preventDefault();
     // Grab state
