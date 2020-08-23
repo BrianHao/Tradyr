@@ -48,9 +48,7 @@ async function getStockQuote(symbol) {
     "/quote?token=" +
     process.env.IEX_APITOKEN;
 
-  let stockQuote = await fetch(url).catch(() => {
-    console.log("Error in fetching stock prices");
-  });
+  let stockQuote = await fetch(url);
   return stockQuote.json();
 }
 

@@ -47,7 +47,6 @@ export default class Profile extends Component {
           this.setState({ stocksTable: stocksTable });
         })
         .catch((e) => {
-          console.log(e);
           this.setState({
             alert: "Error: Unable to load profile information.",
           });
@@ -77,7 +76,7 @@ export default class Profile extends Component {
       return (
         <Redirect
           to={{
-            pathname: "/login",
+            pathname: "/",
           }}
         />
       );
@@ -93,7 +92,7 @@ export default class Profile extends Component {
         </h1>
         <small className="text-muted">
           Account created:{" "}
-          {Moment(user.created).format("MMMM Do YYYY, h:mm:ss a")}
+          {Moment(user.created).format("MMMM Do YYYY, h:mm:ss A")}
         </small>
 
         <h1 className="display-6 m-0">Cash: ${(cash / 100).toFixed(2)}</h1>
@@ -130,7 +129,7 @@ export default class Profile extends Component {
                           <th scope="col">Latest Price</th>
                         </tr>
                       </thead>
-                      {stocksTable}
+                      <tbody>{stocksTable}</tbody>
                     </table>
                     {stocksTable.length < 1
                       ? "You don't own any stocks."

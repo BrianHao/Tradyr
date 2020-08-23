@@ -8,7 +8,7 @@ export default class Transaction extends Component {
     const { transaction } = this.props;
     return (
       <tr>
-        <td>{Moment(transaction.time).format("MMMM Do YYYY, h:mm:ss a")}</td>
+        <td>{Moment(transaction.time).format("MMMM Do YYYY, h:mm:ss A")}</td>
         <td>{transaction.isBuy ? "Buy" : "Sell"}</td>
         <td>{transaction.symbol}</td>
         <td>{transaction.quantity}</td>

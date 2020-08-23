@@ -29,7 +29,6 @@ export default class Transactions extends Component {
             this.setState({
               transactions: data.transactions,
             });
-            console.log(this.state.transactions);
           } else {
             this.setState({
               alert: data.message,
@@ -39,7 +38,6 @@ export default class Transactions extends Component {
         })
         .then((transactions) => this.compileTxTables(transactions))
         .catch((e) => {
-          console.log(e);
           this.setState({
             alert: e.message,
           });
@@ -113,7 +111,7 @@ export default class Transactions extends Component {
       return (
         <Redirect
           to={{
-            pathname: "/login",
+            pathname: "/",
           }}
         />
       );

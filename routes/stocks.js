@@ -10,7 +10,6 @@ const Transaction = require("../models/transaction");
 
 // Logic for buying a stock
 router.post("/buy", passport.isLoggedIn(), async function (req, res) {
-  console.log(req.body);
   let symbol = req.body.symbol.toUpperCase();
   let quantity = req.body.quantity;
   let price;
@@ -194,7 +193,6 @@ async function checkUserOwnsStock(stockList, symbol, user) {
     })
     .then((stock) => {
       stock.save();
-      console.log("dasd", stock._id);
       return stock;
     });
   //.then((stock) => stock._id);
