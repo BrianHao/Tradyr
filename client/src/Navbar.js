@@ -64,10 +64,10 @@ export default class Navbar extends React.Component {
                   </span>
                   <div className="navbar-nav">
                     <a className="nav-link" href="/user/dashboard">
-                      <i class="fas fa-columns mr-1"></i>Dashboard
+                      <i className="fas fa-columns mr-1"></i>Dashboard
                     </a>
                     <a className="nav-link" href="/user/transactions">
-                      <i class="far fa-list-alt mr-1"></i>
+                      <i className="far fa-list-alt mr-1"></i>
                       Transactions
                     </a>
                     <button
@@ -75,7 +75,7 @@ export default class Navbar extends React.Component {
                       onClick={() => this.logout()}
                     >
                       <span className="m-0 px-1">
-                        <i class="fas fa-sign-out-alt mr-1"></i>Log Out
+                        <i className="fas fa-sign-out-alt mr-1"></i>Log Out
                       </span>
                     </button>
                   </div>
@@ -94,13 +94,13 @@ export default class Navbar extends React.Component {
                       className="nav-link btn btn-sm btn-secondary py-0 px-1 m-1"
                       href="/login"
                     >
-                      <i class="fas fa-sign-in-alt mr-1"></i>Log In
+                      <i className="fas fa-sign-in-alt mr-1"></i>Log In
                     </a>
                     <a
                       className="nav-link btn btn-sm btn-secondary py-0 px-1 m-1"
                       href="/signup"
                     >
-                      <i class="fas fa-user-plus mr-1"></i>Sign Up
+                      <i className="fas fa-user-plus mr-1"></i>Sign Up
                     </a>
                   </div>
                 </div>

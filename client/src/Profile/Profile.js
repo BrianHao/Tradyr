@@ -71,13 +71,13 @@ export default class Profile extends Component {
   }
 
   render() {
-    const { user, cash, stocksTable, stocksList, totalValue } = this.state;
+    const { user, cash, stocksTable, totalValue } = this.state;
 
     if (!sessionStorage.getItem("loggedIn")) {
       return (
         <Redirect
           to={{
-            pathname: "/",
+            pathname: "/login",
           }}
         />
       );
@@ -130,8 +130,11 @@ export default class Profile extends Component {
                           <th scope="col">Latest Price</th>
                         </tr>
                       </thead>
-                      <tbody>{stocksTable}</tbody>
+                      {stocksTable}
                     </table>
+                    {stocksTable.length < 1
+                      ? "You don't own any stocks."
+                      : null}
                   </div>
                 </div>
               </div>
