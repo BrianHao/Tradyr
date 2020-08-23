@@ -28,14 +28,14 @@ export default class Carousel extends React.Component {
               <img
                 src={require("./images/page-1.jpg")}
                 className="d-block w-100"
-                alt="dashboard-demo-image"
+                alt="dashboard-demo"
               ></img>
             </div>
             <div className="carousel-item img-container">
               <img
                 src={require("./images/page-2.jpg")}
                 className="d-block w-100"
-                alt="transactions-demo-image"
+                alt="transactions-demo"
               ></img>
             </div>
           </div>
