@@ -84,6 +84,11 @@ app.use("/api/user", userRoutes);
 app.use("/api/user/transactions", transactionsRoutes);
 app.use("/api/user/stocks/", stocksRoutes);
 
+// Serve React App
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
+
 // Bootstrap server
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}.`);
