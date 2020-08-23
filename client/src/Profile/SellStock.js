@@ -30,7 +30,7 @@ export default class SellStock extends Component {
     // Grab state
     const { symbol, quantity } = this.state;
     // // Post request to backend
-    fetch("http://localhost:5000/api/user/stocks/sell", {
+    fetch("/api/user/stocks/sell", {
       method: "POST",
       credentials: "include",
       headers: {

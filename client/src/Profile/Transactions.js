@@ -19,7 +19,7 @@ export default class Transactions extends Component {
   componentDidMount() {
     // Get user's transactions history
     if (sessionStorage.getItem("loggedIn")) {
-      const url = "http://localhost:5000/api/user/transactions";
+      const url = "/api/user/transactions";
       fetch(url, {
         method: "GET",
         credentials: "include",

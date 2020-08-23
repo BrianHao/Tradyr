@@ -23,7 +23,7 @@ export default class Profile extends Component {
   componentDidMount() {
     // Get uer's profile information
     if (sessionStorage.getItem("loggedIn")) {
-      const url = "http://localhost:5000/api/user/profile";
+      const url = "/api/user/profile";
       fetch(url, {
         method: "GET",
         credentials: "include",

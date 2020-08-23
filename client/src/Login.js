@@ -38,7 +38,7 @@ export default class Login extends Component {
   onLogIn(event) {
     event.preventDefault();
     const { email, password } = this.state;
-    fetch("http://localhost:5000/api/auth/login", {
+    fetch("/api/auth/login", {
       method: "POST",
       credentials: "include",
       headers: {

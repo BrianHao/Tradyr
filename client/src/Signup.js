@@ -36,7 +36,7 @@ export default class Signup extends Component {
     // Grab state
     const { email, password, name } = this.state;
     // // Post request to backend
-    fetch("http://localhost:5000/api/auth/signup", {
+    fetch("/api/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

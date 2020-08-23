@@ -47,6 +47,7 @@ app.use(
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "client", "build")));
 
 // Passport config
 const store = new MongoDBStore({
@@ -82,10 +83,6 @@ app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/user/transactions", transactionsRoutes);
 app.use("/api/user/stocks/", stocksRoutes);
-
-app.get("/", (req, res) => {
-  res.send("Hello from MERN testing 1");
-});
 
 // Bootstrap server
 app.listen(PORT, () => {
