@@ -47,7 +47,8 @@ app.use(
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "client", "build")));
+app.use(express.static("client/build"));
+//app.use(express.static(path.join(__dirname, "client", "build")));
 
 // Passport config
 const store = new MongoDBStore({
