@@ -125,3 +125,18 @@ body {
   ) !important;
   color: rgb(6, 61, 104) !important;
 }
+
+.img-container {
+  display: inline-block;
+  position: relative;
+}
+
+.img-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  box-shadow: inset 0px 0px 50px 20px rgba(0, 0, 0, 0.75);
+}

@@ -2,6 +2,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
+import Carousel from "./Carousel";
 
 export default class Landing extends Component {
   constructor(props) {
@@ -29,6 +30,8 @@ export default class Landing extends Component {
         <small className="text-muted">
           A simple to use web-based stock portfolio app.
         </small>
+        <hr></hr>
+        <Carousel />
         <hr></hr>
         <small className="text-muted">
           <Link to="/login">Log in</Link> to get started.
