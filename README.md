@@ -29,16 +29,16 @@ rises and falls throughout the day. Up-to-date stock pricing data is provided by
 
 ## Demo
 A demo can be found at:
-tradyr.herokuapp.com
+[tradyr.herokuapp.com](tradyr.herokuapp.com)
 
 
 
 
 ## Technologies
 Tradyr was created using the MERN Stack:
-**Back-end:** Node.js + Express
-**Database:** MongoDB
-**Front-end:** React.js
-**API:** Stock data provided by [IEX Cloud](https://iexcloud.io)
+- **Back-end:** Node.js + Express
+- **Database:** MongoDB
+- **Front-end:** React.js
+- **API:** Stock data provided by [IEX Cloud](https://iexcloud.io)
 
 ### Created By: Brian Hao
