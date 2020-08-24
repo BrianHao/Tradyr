@@ -2,8 +2,7 @@
 # Tradyr
 **Tradyr** is a simple to use web-based stock portfolio app.
 
-A stock, for the purpose of this project, is simply an asset that can be bought or sold at a price that continuously
-rises and falls throughout the day. Up-to-date stock pricing data is provided by [IEX Cloud](https://iexcloud.io) API.
+A stock, for the purpose of this project, is simply an asset that can be bought or sold at a price that continuously rises and falls throughout the day. Up-to-date stock pricing data is provided by the [IEX Cloud](https://iexcloud.io) API.
 
 ## User Stories
 - A user may sign up for an **account** by providing an email, name and password. 
@@ -32,13 +31,11 @@ A demo can be found at:
 [tradyr.herokuapp.com](https://tradyr.herokuapp.com)
 
 
-
-
 ## Technologies
 Tradyr was created using the MERN Stack:
 - **Back-end:** Node.js + Express
 - **Database:** MongoDB
-- **Front-end:** React.js
+- **Front-end:** React.js + Bootstrap
 - **API:** Stock data provided by [IEX Cloud](https://iexcloud.io)
 
 ### Created By: Brian Hao
