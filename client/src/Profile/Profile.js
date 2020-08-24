@@ -104,10 +104,10 @@ export default class Profile extends Component {
           <div className="row align-items-start">
             <div className="col-sm-12 col-md-4 col-xl-3 col-xxl-2 container-fluid">
               <div className="row justify-content-center">
-                <div className="col-xs-12 col-sm-5 col-md-12 pane">
+                <div className="col-sm-12 col-md-12 pane">
                   <BuyStock />
                 </div>
-                <div className="col-xs-12 col-sm-5 col-md-12 pane">
+                <div className="col-sm-12 col-md-12 pane">
                   <SellStock />
                 </div>
               </div>

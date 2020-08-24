@@ -30,9 +30,17 @@ export default class Landing extends Component {
         <small className="text-muted">
           A simple to use web-based stock portfolio app.
         </small>
-        <hr></hr>
-        <Carousel />
-        <hr></hr>
+        <hr className="mb-1"></hr>
+        <div className="img-container">
+          <img
+            src={
+              "https://api.time.com/wp-content/uploads/2020/02/zoom-zm-stocks-coronavirus.jpg"
+            }
+            className="d-block w-100"
+            alt="dashboard-demo"
+          ></img>
+        </div>
+        <hr className="mt-1"></hr>
         <small className="text-muted">
           <Link to="/login">Log in</Link> to get started.
         </small>
