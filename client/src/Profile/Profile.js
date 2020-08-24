@@ -102,17 +102,17 @@ export default class Profile extends Component {
         <hr className="mt-0"></hr>
         <div className="container-fluid">
           <div className="row align-items-start">
-            <div className="col-sm-12 col-md-4 col-xl-3 col-xxl-2 container-fluid">
+            <div className="col-sm-12 col-md-4 col-xl-3 container-fluid">
               <div className="row justify-content-center">
-                <div className="col-sm-12 col-md-12 pane">
+                <div className="col-sm-12 col-md-5 col-lg-12 pane">
                   <BuyStock />
                 </div>
-                <div className="col-sm-12 col-md-12 pane">
+                <div className="col-sm-12 col-md-5 col-lg-12 pane">
                   <SellStock />
                 </div>
               </div>
             </div>
-            <div className="col-sm-12 col-md-8 col-xl-9 col-xxl-10">
+            <div className="col-sm-12 col-md-8 col-xl-9">
               <div className="row">
                 <div className="col pane">
                   <h1 className="display-6 m-0 center">
