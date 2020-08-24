@@ -29,7 +29,7 @@ rises and falls throughout the day. Up-to-date stock pricing data is provided by
 
 ## Demo
 A demo can be found at:
-[tradyr.herokuapp.com](tradyr.herokuapp.com)
+[tradyr.herokuapp.com](https://tradyr.herokuapp.com)
 
 
 
