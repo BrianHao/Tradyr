@@ -2,7 +2,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom";
-import Carousel from "./Carousel";
 
 export default class Landing extends Component {
   constructor(props) {
