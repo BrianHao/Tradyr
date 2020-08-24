@@ -110,7 +110,7 @@ export default class Transactions extends Component {
     }
 
     return (
-      <div className="window center container-lg">
+      <div className="window center container-md">
         <h1 className="display-1 mt-0">Transactions</h1>
         <hr className=""></hr>
 
